@@ -1,5 +1,10 @@
-function(sequelize, DataTypes) {
+module.exports = function(sequelize, DataTypes) {
     return sequelize.define('game', {
+        id: {
+            type: DataTypes.INTEGER,
+            primaryKey: true,
+            autoIncrement: true
+        },
         title: {
             type: DataTypes.STRING(25),
             allowNull: false,

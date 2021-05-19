@@ -68,27 +68,27 @@ router.put('/update/:id', (req, res) => {
         user_rating: req.body.game.user_rating,
         have_played: req.body.game.have_played
     },
-        {
-            where: {
-                id: req.params.id,
-                owner_id: req.user
-            }
-        })
-        .then(
-            function updateSuccess(game) {
-                res.status(200).json({
-                    game: game,
-                    message: "Successfully updated."
-                })
-            },
+    {
+        where: {
+            id: req.params.id,
+            owner_id: req.user.id
+        }
+    })
+    .then(
+        function updateSuccess(game) {
+            res.status(200).json({
+                game: game,
+                message: "Successfully updated."
+            })
+        },
 
-            function updateFail(err) {
-                res.status(500).json({
-                    message: err.message
-                })
-            }
+        function updateFail(err) {
+            res.status(500).json({
+                message: err.message
+            })
+        }
 
-        )
+    )
 })
 
 router.delete('/remove/:id', (req, res) => {

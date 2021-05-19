@@ -1,0 +1,16 @@
+Compiling errors
+1.Add to file userController.js at 1 line require('express')
+2.Install package bcrypt via npm
+3.In usercontroller remove import at 2-nd line and make the same with gamecontroller
+4.In gamecontroller change variable routers to router because the routers variable isn't exist
+5.Add module.exports in file db.js at line 9
+
+Logic errors
+1.Add to app.js port 4000 to function app.listen 
+2.Add to body parser call of function json();
+3.Add id to game and user model
+4.Change position of middleware from 12 to 11 make the same with routes of game because you want if only authenticated user has acces to game routes
+5.Change name of passwordhash to passwordHash in usercontroller on line 11 
+6.Update sequelize
+7.Update pg
+8.add id to object user when update game in file gamecontroller in line 74

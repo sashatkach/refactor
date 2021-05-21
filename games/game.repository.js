@@ -8,16 +8,16 @@ const createGame = async (ownerId, gameFields) => Game.create({
   title: gameFields.title,
   owner_id: ownerId,
   studio: gameFields.studio,
-  esrb_rating: gameFields.esrb_rating,
-  user_rating: gameFields.user_rating,
+  esrb_raiting: gameFields.esrb_raiting,
+  user_raiting: gameFields.user_raiting,
   have_played: gameFields.have_played
 });
 
 const updateGame = async (ownerId, gameId, gameFields) =>  Game.update({
   title: gameFields.title,
   studio: gameFields.studio,
-  esrb_rating: gameFields.esrb_rating,
-  user_rating: gameFields.user_rating,
+  esrb_raiting: gameFields.esrb_rating,
+  user_raiting: gameFields.user_rating,
   have_played: gameFields.have_played
 }, {
   where: {

@@ -21,12 +21,12 @@ module.exports = function(sequelize, DataTypes) {
             allowNull: false,
         },
 
-        esrb_rating: {
+        esrb_raiting: {
             type: DataTypes.CHAR(5),
             allowNull: false,
         },
 
-        user_rating: {
+        user_raiting: {
             type: DataTypes.INTEGER,
             allowNull: false,
             validate: {

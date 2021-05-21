@@ -1,29 +1,55 @@
 const jwt = require('jsonwebtoken');
-var User = require('../db').import('../models/user');
+const userService = require('../users/user.service');
+const { ReasonPhrases, StatusCodes } = require('http-status-codes');
 
-module.exports = function (req, res, next) {
-    if (req.method == 'OPTIONS') {
-        next();   // allowing options as a method for request
-    } else {
-        var sessionToken = req.headers.authorization;
-        console.log(sessionToken);
-        if (!sessionToken) return res.status(403).send({ auth: false, message: "No token provided." });
-        else {
-            jwt.verify(sessionToken, 'lets_play_sum_games_man', (err, decoded) => {
-                if (decoded) {
-                    User.findOne({ where: { id: decoded.id } }).then(user => {
-                        req.user = user;
-                        console.log(`user: ${user}`)
-                        next()
-                    },
-                        function () {
-                            res.status(401).send({ error: "not authorized" });
-                        })
-
-                } else {
-                    res.status(400).send({ error: "not authorized" })
-                }
-            });
+const verifyToken = (req, res, next, sessionToken) =>
+{
+    jwt.verify(sessionToken, 'lets_play_sum_games_man', (err, decoded) =>
+    {
+        if(!err)
+        {
+            return jwtVerify(decoded, req, res, next);
         }
+        return res
+        .status(StatusCodes.BAD_REQUEST)
+        .json({message: ReasonPhrases.BAD_REQUEST});
+    });
+}
+
+const jwtVerify = async (decoded, req, res, next) =>
+{
+    if (decoded)
+    {
+        try
+        {
+            const user = await userService.findUserById(decoded.id);
+            req.user = user;
+            next();
+        }
+        catch(e)
+        {
+            res.status(StatusCodes.BAD_REQUEST).send({ error: e.message });
+        }
+    }
+    else
+    {
+        res.status(StatusCodes.UNAUTHORIZED).send({ error: ReasonPhrases.UNAUTHORIZED });
+    }
+}
+module.exports = function (req, res, next)
+{
+    if (req.method == 'OPTIONS')
+    {
+        next();   // allowing options as a method for request
+    }
+
+    const sessionToken = req.headers.authorization;
+    if (!sessionToken)
+    {
+        return res.status(StatusCodes.FORBIDDEN).send({ auth: false, message: ReasonPhrases.FORBIDDEN });
+    }
+    else
+    {
+        verifyToken(req, res, next, sessionToken);
     }
 }

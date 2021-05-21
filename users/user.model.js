@@ -3,16 +3,25 @@ module.exports = function(sequelize, DataTypes) {
         id: {
             type: DataTypes.INTEGER,
             primaryKey: true,
-            autoIncrement: true
+            autoIncrement: true,
         },
         full_name: {
             type: DataTypes.STRING,
-            allowNull: false
+            allowNull: false,
+            validated: {
+                isAlpha: true,
+                len: [1, 255]
+            }
         },
 
         username: {
             type: DataTypes.STRING,
-            allowNull: false
+            allowNull: false,
+            unique: true,
+            validated: {
+                isAlpha: true,
+                len: [1, 255]
+            }
         },
 
         passwordHash: {
@@ -23,8 +32,10 @@ module.exports = function(sequelize, DataTypes) {
         email: {
             type: DataTypes.STRING,
             allowNull: false,
+            unique: true,
             validate: {
-                isEmail: true
+                isEmail: true,
+                len: [1, 255]
             }
         }
     })

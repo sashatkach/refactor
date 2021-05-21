@@ -5,6 +5,7 @@ module.exports = function(sequelize, DataTypes) {
             primaryKey: true,
             autoIncrement: true
         },
+
         title: {
             type: DataTypes.STRING(25),
             allowNull: false,
@@ -17,7 +18,7 @@ module.exports = function(sequelize, DataTypes) {
 
         studio: {
             type: DataTypes.STRING,
-            allowNull: false,            
+            allowNull: false,
         },
 
         esrb_rating: {

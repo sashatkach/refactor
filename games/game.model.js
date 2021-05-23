@@ -1,5 +1,11 @@
-function(sequelize, DataTypes) {
+module.exports = function(sequelize, DataTypes) {
     return sequelize.define('game', {
+        id: {
+            type: DataTypes.INTEGER,
+            primaryKey: true,
+            autoIncrement: true
+        },
+
         title: {
             type: DataTypes.STRING(25),
             allowNull: false,
@@ -12,15 +18,15 @@ function(sequelize, DataTypes) {
 
         studio: {
             type: DataTypes.STRING,
-            allowNull: false,            
+            allowNull: false,
         },
 
-        esrb_rating: {
+        esrb_raiting: {
             type: DataTypes.CHAR(5),
             allowNull: false,
         },
 
-        user_rating: {
+        user_raiting: {
             type: DataTypes.INTEGER,
             allowNull: false,
             validate: {
